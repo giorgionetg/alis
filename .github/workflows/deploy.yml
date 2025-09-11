@@ -34,6 +34,10 @@ jobs:
 
       - name: Build project
         run: yarn build
+        env:
+          PUBLIC_FULLNAME: ${{ vars.PUBLIC_FULLNAME }}
+          PUBLIC_PAYOFF: ${{ vars.PUBLIC_PAYOFF }}
+          PUBLIC_SOCIAL_LINKEDIN: ${{ vars.PUBLIC_SOCIAL_LINKEDIN }}
 
       - name: Upload production-ready files
         uses: actions/upload-pages-artifact@v3
