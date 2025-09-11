@@ -1,27 +1,42 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-@import "animate.css";
+@import 'animate.css';
 
 @font-face {
-  font-family: "EUR42";
-  src:
-    url("/fonts/EUR42.woff2") format("woff2"),
-    url("/fonts/EUR42.woff") format("woff");
+  font-family: 'EUR42';
+  src: url('/fonts/EUR42.woff2') format('woff2'),
+    url('/fonts/EUR42.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Rubik";
-  src:
-    url("/fonts/Rubik-VariableFont_wght.woff2") format("woff2"),
-    url("/fonts/Rubik-VariableFont_wght.woff") format("woff");
+  font-family: 'Rubik';
+  src: url('/fonts/Rubik-VariableFont_wght.woff2') format('woff2'),
+    url('/fonts/Rubik-VariableFont_wght.woff') format('woff');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
+/* global.css */
+.h-50 {
+  height: 50px;
+}
+
+.h-70 {
+  height: 70px;
+}
+
+.h-120 {
+  height: 120px;
+}
+
+.h-200 {
+  height: 200px;
+}
+
 body {
-  font-family: "Rubik", serif;
+  font-family: 'Rubik', serif;
 }

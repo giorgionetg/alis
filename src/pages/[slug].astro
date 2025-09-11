@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import PageLayout from '@/layouts/BasePage.astro';
 import BusinessCard from '@/components/BusinessCard.astro';
 import Slide from '@/components/Slide.astro';
-import Layout from '@/layouts/Layout.astro';
+import Layout from '@/layouts/White.astro';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
@@ -18,7 +18,4 @@ const { page } = Astro.props;
 
 <Layout>
   <Slide color='bg-slate-300' height={100}> <BusinessCard /> </Slide>
-  <Slide color='bg-gray-300' height={50}>
-    <p class='font-[EUR42]'>ciao</p>
-  </Slide>
 </Layout>
