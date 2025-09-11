@@ -6,7 +6,7 @@ const posts = defineCollection({
     title: z.string(),
     date: z.date(),
     slug: z.string().optional(),
-  })
+  }),
 });
 
 const pages = defineCollection({
@@ -15,7 +15,7 @@ const pages = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     slug: z.string().optional(),
-  })
+  }),
 });
 
 export const collections = {

@@ -2,6 +2,7 @@
 import '@/styles/global.css';
 import 'animate.css';
 import { site } from '@/config';
+import Slide from '@/components/Slide.astro';
 ---
 
 <!doctype html>
@@ -17,6 +18,9 @@ import { site } from '@/config';
   </head>
   <body>
     <slot />
+    <Slide color='bg-blue-800'>
+      <span class='my-2 text-white'><a href='https://www.giorgiotedesco.it' target='_BLANK'>Made by Giorgiotedesco.it</a></span>
+    </Slide>
   </body>
 </html>
 
