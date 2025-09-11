@@ -1,0 +1,16 @@
+---
+import Layout from '@/layouts/White.astro';
+import Slide from '@/components/Slide.astro';
+import BusinessCard from '@/components/BusinessCard.astro';
+import MiniNav from '@/components/MiniNav.astro';
+---
+
+<Layout>
+  <Slide color='bg-slate-300' height={100}>
+    <div class='flex flex-col justify-around gap-1.5 text-center items-center'>
+      <h1>404</h1><br />
+      <p>Sorry, content not found</p><br />
+      <div class='w-full'><MiniNav /></div>
+    </div>
+  </Slide>
+</Layout>

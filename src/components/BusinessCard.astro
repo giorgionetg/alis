@@ -1,0 +1,22 @@
+---
+import { site } from '@/config';
+
+import MiniNav from './MiniNav.astro';
+
+const fullname = site.fullname;
+const payoff = site.payoff;
+
+const ratioPerCard = site.ratio.businesscard;
+---
+
+<div
+  class=`animate__animated animate__fadeInUp p-5 ${ratioPerCard} w-120 shadow-2xl rounded-md flex flex-col justify-around bg-slate-200 text-gray-800`
+>
+  <div class='text-center'>
+    <h1 class='font-[EUR42] mb-1 text-4xl'>{fullname}</h1>
+    <h2 class='font-rubik text-[16px]'>{payoff}</h2>
+  </div>
+  <div class='w-full'>
+    <MiniNav />
+  </div>
+</div>
