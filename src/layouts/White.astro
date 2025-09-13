@@ -3,6 +3,7 @@ import '@/styles/global.css';
 import 'animate.css';
 import { site } from '@/config';
 import Slide from '@/components/Slide.astro';
+import CookieConsent from '@/components/CookieConsent.astro';
 ---
 
 <!doctype html>
@@ -19,8 +20,9 @@ import Slide from '@/components/Slide.astro';
   </head>
   <body>
     <slot />
+    
     <Slide color='bg-blue-800'>
-      <span class='my-2 text-white'><a href='https://www.giorgiotedesco.it' target='_BLANK'>Made with ❤️ by <b>Giorgiotedesco.it</b></a></span>
+      <span class='my-2 text-white'><a href='/cookie-policy'>Cookie Policy</a> | <a href='https://www.giorgiotedesco.it' target='_BLANK'>Made with ❤️ by <b>Giorgiotedesco.it</b></a></span>
     </Slide>
   </body>
 </html>

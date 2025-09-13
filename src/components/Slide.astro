@@ -2,19 +2,23 @@
 interface Props {
   color: string;
   height?: string | number;
+  hfull?: boolean;
+  cookieConsent?: boolean;
 }
 
 const color = Astro.props.color || 'bg-gray-900';
 const height =
   Astro.props.height && Astro.props.height == 100
-    ? 'h-full'
-    : `h-${Astro.props.height}` || 'bg-gray-900';
+    ? 'min-h-full'
+    : `min-h-${Astro.props.height}` || 'bg-gray-900';
 
 const mainDiv = `w-full ${height} bg-amber-500 ${color} flex flex-col justify-center`;
+const hfull = Astro.props.hfull ? 'h-full' : '';
+
 ---
 
 <div class={mainDiv}>
-  <div class='flex flex-row justify-center'>
+  <div class={`${hfull} flex flex-row justify-center`}>
     <slot />
   </div>
 </div>

@@ -1,9 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
-import PageLayout from '@/layouts/BasePage.astro';
+import { getCollection, getEntry, render } from 'astro:content';
+
 import BusinessCard from '@/components/BusinessCard.astro';
 import Slide from '@/components/Slide.astro';
 import Layout from '@/layouts/White.astro';
+import Paper from '@/components/Paper.astro';
+
+// Ottieni lo slug dalla route
+const { slug } = Astro.params;
+
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
@@ -14,8 +19,18 @@ export async function getStaticPaths() {
 }
 
 const { page } = Astro.props;
+const { Content } = await page.render();
+
 ---
 
 <Layout>
-  <Slide color='bg-slate-300' height={100}> <BusinessCard /> </Slide>
+  <Slide color='bg-slate-300' height={100}>
+    <div class='container flex flex-col justify-around items-center gap-4'>
+      <h1 class='text-2xl mb-5 font-[EUR42]'>{ page.data.title }</h1>
+      <BusinessCard />
+      <Paper><Content /></Paper>    
+      
+    </div>
+    
+  </Slide>
 </Layout>

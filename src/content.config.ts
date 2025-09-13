@@ -18,7 +18,21 @@ const pages = defineCollection({
   }),
 });
 
+const tradeFairs = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    startdate: z.coerce.date(),
+    enddate: z.coerce.date(),
+    slug: z.string().optional(),
+    location: z.string().optional(),
+    description: z.string().optional(),
+  }),
+});
+
+
 export const collections = {
   posts,
   pages,
+  'trade-fairs': tradeFairs,
 };

@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+const fairs = await getCollection("trade-fairs");
+import Layout from "@/layouts/White.astro";
+import Slide from "@/components/Slide.astro";
+import BusinessCard from "@/components/BusinessCard.astro";
+---
+
+<Layout>
+    <Slide color="bg-yellow" height={100}}>
+        <div class='container flex flex-col justify-around items-center gap-4'>
+            <h1 class='text-4xl mb-5'>Trade Fairs</h1>
+            <BusinessCard />
+            <ul>
+            {fairs.map((fair) => (
+                <li>
+                <a href={`/trade-fairs/${fair.slug}`}>{fair.data.title}</a>
+                </li>
+            ))}
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+            </ul>
+        </div>
+        
+
+    </Slide>
+</Layout>
