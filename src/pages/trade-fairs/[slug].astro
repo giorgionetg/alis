@@ -20,7 +20,7 @@ const { Content } = await page.render();
 ---
 <Layout>
   <Slide color='bg-slate-300' height={100}>
-    <div class='container flex flex-col justify-around items-center gap-4'>
+    <div class='container flex flex-col justify-around items-center gap-4 px-5 lg: py-10'>
       <h1 class='text-2xl mb-5 font-[EUR42]'>{ page.data.title }</h1>
       <BusinessCard />
       <Paper><Content /></Paper>    
