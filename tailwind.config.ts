@@ -7,10 +7,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        testcolor: "#ff00ff",
+      },
       fontFamily: {
         eur42: ["EUR42", "serif"], // deve combaciare col font-family del tuo @font-face
         rubik: ["Rubik", "serif"], // idem
       },
+      typography: {
+        css: {
+            h1: {
+                fontFamily: "EUR42, serif",
+            }
+        }
+      }
     },
   },
   plugins: [],

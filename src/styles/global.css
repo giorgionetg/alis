@@ -23,6 +23,26 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'tangerine';
+  src:
+    url('/fonts/Tangerine-Regular.woff2') format('woff2'),
+    url('/fonts/Tangerine-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'passion';
+  src:
+    url('/fonts/PassionsConflict-Regular.woff2') format('woff2'),
+    url('/fonts/PassionsConflict-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* global.css */
 .h-50 {
   height: 50px;
@@ -42,4 +62,33 @@
 
 body {
   font-family: 'Rubik', serif;
+}
+
+@layer utilities {
+  .font-eur42 {
+    @apply font-[EUR42];
+  }
+
+  .font-tangerine {
+    @apply font-[tangerine];
+  }
+
+  .font-passion {
+    @apply font-[passion];
+  }
+
+  .bg-testcolor {
+    @apply bg-[#ff00ff];
+  }
+  .text-testcolor {
+    @apply text-[#ff00ff];
+  }
+}
+
+@layer components {
+  .prose h1 {
+    font-family: 'EUR42', serif; /* esempio font custom */
+    font-weight: 700;
+    color: var(--color-primary, #1d4ed8);
+  }
 }
