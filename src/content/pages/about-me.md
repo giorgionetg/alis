@@ -3,8 +3,6 @@ title: About me
 date: 2025-09-11
 ---
 
-# About Me  
-
 There’s a thread that connects the fertile fields of my homeland with the negotiations in international markets: **a deep passion for building bridges between those who produce and those who seek authentic quality**.  
 
 For over **18 years I have been working in the agricultural sector**, gaining solid expertise in fertilizers and long-term commercial relationships. Today, I’ve chosen to put this experience at the service of a new challenge: **bringing carefully selected fresh produce to the European market, with a special focus on Egyptian artichokes and other Mediterranean specialties**.  

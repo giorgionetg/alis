@@ -1,11 +1,9 @@
 ---
 
-title: Privacy Policy
+title: Privacy Terms
 date: 2025-01-01
 
 ---
-
-# Privacy Policy
 
 **Subject:** AlisMardare.it
 

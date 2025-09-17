@@ -3,8 +3,6 @@ title: Cookie Policy
 date: 2025-01-01
 ---
 
-# Cookie Policy
-
 This website uses cookies to ensure the proper functioning of the pages and to improve the browsing experience. In particular, the following are used:
 
 ## Technical Cookies
