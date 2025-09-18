@@ -1,10 +1,27 @@
 ---
-const contents = [
+
+interface Dat {
+  title: string;
+  url?: string;
+}
+
+interface Props {
+  data: string[] | Dat[]
+}
+
+const contents = Astro.props.data || [
     { title: '18+ Years of Expertise', url: '/blog/testurl' },
     { title: 'A Strong Network', url: '/blog/testurl' },
     { title: 'Egyptian Artichokes', url: '/product/lines' },
     { title: 'A New Venture, Rooted in Tradition', url: '/blog/testurl' },
-]
+];
+
+/*const contents = [
+    { title: '18+ Years of Expertise', url: '/blog/testurl' },
+    { title: 'A Strong Network', url: '/blog/testurl' },
+    { title: 'Egyptian Artichokes', url: '/product/lines' },
+    { title: 'A New Venture, Rooted in Tradition', url: '/blog/testurl' },
+]*/
 ---
 
 <div class='w-full mt-15'>
@@ -15,7 +32,7 @@ const contents = [
             }`}
               data-index={i}
             >
-                <span class='font-passion text-5xl'>{feature.title}</span>
+                <span class='font-passion text-5xl'>{(typeof feature === 'object') ? feature.title : feature }</span>
             </li>
         ))}
     </ul>

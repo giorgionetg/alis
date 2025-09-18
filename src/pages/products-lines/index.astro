@@ -1,0 +1,18 @@
+---
+
+import Layout from "@/layouts/CategoryListing.astro";
+import Hero from "@/components/Hero.astro";
+
+const heroDat = [
+    'Artichokes that open markets.',
+    'From our fields to your shelves.',
+    'Premium artichokes, trusted by buyers.'
+];
+
+---
+
+<Layout title=`Products' Lines`>
+
+    <Hero data={heroDat} />
+
+</Layout>

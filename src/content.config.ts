@@ -18,6 +18,15 @@ const pages = defineCollection({
   }),
 });
 
+const services = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    slug: z.string().optional(),
+  }),
+});
+
 const tradeFairs = defineCollection({
   type: "content",
   schema: z.object({
@@ -35,4 +44,5 @@ export const collections = {
   posts,
   pages,
   'trade-fairs': tradeFairs,
+  services
 };

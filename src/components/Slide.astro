@@ -4,7 +4,11 @@ interface Props {
   height?: string | number;
   hfull?: boolean;
   cookieConsent?: boolean;
+  top?: boolean;
 }
+
+const isTop = Astro.props.top || false;
+const position = isTop ? 'justify-start' : 'justify-center';
 
 const color = Astro.props.color || 'bg-gray-900';
 const height =
@@ -12,8 +16,9 @@ const height =
     ? 'min-h-full'
     : `min-h-${Astro.props.height}` || 'bg-gray-900';
 
-const mainDiv = `w-full ${height} bg-amber-500 ${color} flex flex-col justify-center`;
+const mainDiv = `w-full ${height} bg-amber-500 ${color} flex flex-col ${position}`;
 const hfull = Astro.props.hfull ? 'h-full' : '';
+
 
 ---
 

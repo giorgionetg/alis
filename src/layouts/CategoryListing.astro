@@ -5,6 +5,16 @@ import { site } from '@/config';
 import Slide from '@/components/Slide.astro';
 import CookieConsent from '@/components/CookieConsent.astro';
 import Footer from '@/components/Footer.astro';
+import BusinessCard from '@/components/BusinessCard.astro';
+
+
+interface Props {
+  title: string;
+  background?: string;
+}
+
+const title = Astro.props.title;
+
 ---
 
 <!doctype html>
@@ -20,7 +30,14 @@ import Footer from '@/components/Footer.astro';
      <script defer src="https://get.giorgiotedesco.it/script.js" data-website-id="04e978e4-8231-4926-8b38-22c2a45666f3"></script>
   </head>
   <body>
-    <slot />
+    
+    <Slide color='bg-slate-300' height={100} top={true}>
+        <div class='container flex justify-around flex-col  items-center gap-4 px-5 lg: py-10'>
+            <h1 class='text-2xl mb-5 font-[EUR42]'>{title}</h1>
+            <BusinessCard />
+            <slot />
+        </div>
+    </Slide>
     
     <Footer />
   </body>
