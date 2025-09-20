@@ -92,3 +92,10 @@ body {
     color: var(--color-primary, #1d4ed8);
   }
 }
+
+.bg-div {
+  background-image: url('/imgs/bg_02.png');
+  background-size: cover; /* l'immagine copre tutto il div */
+  background-position: center; /* centrata */
+  background-repeat: no-repeat; /* evita ripetizioni */
+}
