@@ -1,9 +1,10 @@
 ---
 
 title: "Fruit Attraction"
-startdate: "2025-05-08"
-enddate: "2025-05-11"
-location: "Rimini, Italy"
+startdate: "2025-09-30"
+enddate: "2025-09-02"
+location: "Madrid, Spain"
+image: 'imgs/macfrut-2025.png'
 
 ---
 

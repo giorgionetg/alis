@@ -1,9 +1,11 @@
 ---
 
 title: "Mac Frut"
-startdate: "2025-05-08"
+startdate: "2025-09-08"
 enddate: "2025-05-11"
 location: "Rimini, Italy"
+
+image: 'imgs/macfrut-2025.png'
 
 ---
 

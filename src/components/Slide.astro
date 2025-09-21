@@ -1,6 +1,6 @@
 ---
 interface Props {
-  color: string;
+  color?: string;
   height?: string | number;
   hfull?: boolean;
   cookieConsent?: boolean;
@@ -9,14 +9,14 @@ interface Props {
 
 const isTop = Astro.props.top || false;
 const position = isTop ? 'justify-start' : 'justify-center';
-
+const bgdiv = Astro.props.color ? Astro.props.color : 'bg-div';
 const color = Astro.props.color || 'bg-gray-900';
 const height =
   Astro.props.height && Astro.props.height == 100
     ? 'min-h-full'
     : `min-h-${Astro.props.height}` || 'bg-gray-900';
 
-const mainDiv = `w-full ${height} bg-amber-500 ${color} flex flex-col ${position} bg-div`;
+const mainDiv = `w-full ${height} bg-amber-500 ${color} flex flex-col ${position} ${bgdiv}`;
 const hfull = Astro.props.hfull ? 'h-full' : '';
 
 

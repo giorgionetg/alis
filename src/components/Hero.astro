@@ -6,13 +6,12 @@ interface Dat {
 }
 
 interface Props {
-  data: string[] | Dat[]
+  data?: string[] | Dat[]
 }
 
 const contents = Astro.props.data || [
     { title: '18+ Years of Expertise', url: '/blog/testurl' },
     { title: 'A Strong Network', url: '/blog/testurl' },
-    { title: 'Egyptian Artichokes', url: '/product/lines' },
     { title: 'A New Venture, Rooted in Tradition', url: '/blog/testurl' },
 ];
 
@@ -24,7 +23,7 @@ const contents = Astro.props.data || [
 ]*/
 ---
 
-<div class='w-full mt-15'>
+<div class='w-full mt-15 mb-10'>
     <ul id="phrases" class="relative h-16 text-xl flex items-center justify-center">
         {contents.map((feature, i) => (
             <li class={`absolute transition-opacity duration-700 ease-in-out text-center ${

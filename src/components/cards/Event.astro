@@ -1,0 +1,50 @@
+---
+
+interface Props {
+  name: string;
+  cta: string;
+  slug: string;
+  link?: string;
+  img: string;
+  startdate: string;
+  enddate: string;
+}
+
+
+const idCall = Astro.props.slug;
+
+const backImg = Astro.props.img;
+const style = `background-image: url('${backImg}');`
+
+const start = new Date(Astro.props.startdate);
+
+
+
+---
+
+<div 
+  class="relative rounded-xl w-80 aspect-square bg-cover bg-center overflow-hidden"
+  style={style}
+>
+  <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-white p-6">
+    <h3 class="text-xl font-bold">{ Astro.props.name }</h3>
+    <p class="text-sm mt-1">3–5 Ottobre 2025<br />Madrid, Spagna</p>
+    <button data-cal-link="alismardare/reserve-a-meeting-fruit-attraction-2025" data-cal-namespace="reserve-a-meeting-fruit-attraction-2025" data-cal-config='{"layout":"month_view"}' class="mt-4 px-4 py-2 bg-indigo-600 rounded-lg hover:bg-indigo-700">
+      <a >{Astro.props.cta}</a>
+    </button>
+  </div>
+</div>
+<!-- Cal element-click embed code begins -->
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+Cal("init", "reserve-a-meeting-fruit-attraction-2025", {origin:"https://app.cal.com"});
+
+  
+  // Important: Please add the following attributes to the element that should trigger the calendar to open upon clicking.
+  // `data-cal-link="alismardare/reserve-a-meeting-fruit-attraction-2025"`
+  // data-cal-namespace="reserve-a-meeting-fruit-attraction-2025"
+  // `data-cal-config='{"layout":"month_view"}'`
+
+  Cal.ns[idCall]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+  </script>
+  <!-- Cal element-click embed code ends -->

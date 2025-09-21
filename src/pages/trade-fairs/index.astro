@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 const fairs = await getCollection("trade-fairs");
 import Hero from "@/components/Hero.astro";
 
+import Event from '@/components/cards/Event.astro';
 const heroDat = [
     'Turning fair meetings into real business.',
     'From first contact to lasting collaboration.',
@@ -14,10 +15,10 @@ const heroDat = [
 
 <Layout title='Trade Fairs'>
     <Hero data={heroDat} />
-    <ul class='flex flex-row max-w-150'>
+    <ul class='flex flex-row flex-wrap max-w-150 gap-2'>
         {fairs.map((fair) => (
             <li>
-                <a href={`/trade-fairs/${fair.slug}`}>{fair.data.title}</a>
+                <Event name={fair.data.title} slug={fair.slug} startdate={fair.data.startdate as unknown as string} enddate={fair.data.enddate as unknown as string} img={fair.data.image} cta='Reserve a Meeting' />
             </li>
         ))}
     </ul>
