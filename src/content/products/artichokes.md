@@ -24,22 +24,27 @@ productData: {
 
 ---
 
-Artichokes in Brine – Quarter, Heart, Ice Cream with Stem
-Fresh and succulent, artichokes in brine are a premium-quality product sourced from Egypt. These artichokes are preserved in a brine solution with 18–20% salt content, maintaining their mild, slightly acidic flavor without any foreign odors.
+### Artichokes in Brine
+Quarter, Heart, Ice Cream with Stem Fresh and succulent, artichokes in brine are a premium-quality product sourced from Egypt.
 
-Product Description
-Type: Artichokes in brine (Quarter, Heart, Ice Cream with Stem)
-Origin: Egypt
-Net Weight: 130 kg / 170 kg (available in both quantities)
-pH Level: 3.2 – 4.0 (indicative of balanced acidity and salinity)
-Salt Content: 18% – 20%
-Key Features
-✅ Appearance: Uniformly sliced green artichokes, free from white veins.
-✅ Taste: Mild and slightly acidic, with no foreign odors.
-✅ Texture: Firm and crisp, ideal for a variety of culinary uses.
-✅ Varieties Available:
+These artichokes are preserved in a brine solution with 18–20% salt content, maintaining their mild, slightly acidic flavor without any foreign odors.
 
-## Quarter (cut into quarters)
+### Product Description
+
+* **Type**: Artichokes in brine (Quarter, Heart, Ice Cream with Stem)
+* **Origin**: Egypt
+* **Net Weight**: 130 kg / 170 kg (available in both quantities)
+* **pH Level**: 3.2 – 4.0 (indicative of balanced acidity and salinity)
+* **Salt Content**: 18% – 20%
+
+### Key Features
+
+* ✅ Appearance: Uniformly sliced green artichokes, free from white veins.
+* ✅ Taste: Mild and slightly acidic, with no foreign odors.
+* ✅ Texture: Firm and crisp, ideal for a variety of culinary uses.
+* ✅ Varieties Available:
+
+### Quarter (cut into quarters)
 **Heart (core of the artichoke)**
 Ice Cream with Stem (a specific cut with the stem included)
 Packaging

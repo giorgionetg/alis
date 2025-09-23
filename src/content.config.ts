@@ -40,10 +40,20 @@ const tradeFairs = defineCollection({
   }),
 });
 
+const products = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    slug: z.string().optional(),
+  }),
+});
+
 
 export const collections = {
   posts,
   pages,
   'trade-fairs': tradeFairs,
-  services
+  services,
+  products
 };

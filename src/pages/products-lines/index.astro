@@ -2,6 +2,13 @@
 
 import Layout from "@/layouts/CategoryListing.astro";
 import Hero from "@/components/Hero.astro";
+import Paper from "@/components/Paper.astro";
+import SubMenu from "@/components/SubMenu.astro";
+
+import { getEntry } from "astro:content";
+
+const homeBase = await getEntry('products', 'artichokes');
+const { Content } = await homeBase.render();
 
 const heroDat = [
     'Artichokes that open markets.',
@@ -14,5 +21,12 @@ const heroDat = [
 <Layout title=`Products' Lines`>
 
     <Hero data={heroDat} />
+
+    <Paper size='w-280'>
+        <SubMenu />
+        <Content />
+    </Paper>
+
+
 
 </Layout>
