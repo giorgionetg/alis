@@ -16,7 +16,7 @@ interface Props {
 const idCall = Astro.props.slug;
 
 const backImg = Astro.props.img;
-const style = `background-image: url('${backImg}');`
+const style = `background-image: url('/${backImg}');`
 
 const start = new Date(Astro.props.startdate);
 const end = new Date(Astro.props.enddate);
