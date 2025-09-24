@@ -36,7 +36,8 @@ const tradeFairs = defineCollection({
     slug: z.string().optional(),
     location: z.string().optional(),
     description: z.string().optional(),
-    image: z.string()
+    image: z.string(),
+    isBooking: z.boolean(),
   }),
 });
 

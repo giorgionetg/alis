@@ -1,7 +1,7 @@
 ---
 
 title: 'Artichokes'
-description: 'Artichokes in Brine Quarter, Heart, Ice Cream with stem'
+description: 'Quarter, Heart, Ice Cream with Stem Fresh and succulent, artichokes in brine are a premium-quality product sourced from Egypt.'
 
 productData: {
     characteristics: {
@@ -26,7 +26,6 @@ productData: {
 
 ### Artichokes in Brine
 Quarter, Heart, Ice Cream with Stem Fresh and succulent, artichokes in brine are a premium-quality product sourced from Egypt.
-
 These artichokes are preserved in a brine solution with 18–20% salt content, maintaining their mild, slightly acidic flavor without any foreign odors.
 
 ### Product Description

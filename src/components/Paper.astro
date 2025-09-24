@@ -8,5 +8,8 @@ const size = Astro.props.size || 'w-160';
 
 ---
 
-
-<div class=`w-full px-5 pt-5 lg:mt-10 lg:px-15 pt-15 pb-10  shadow-2xl rounded-md flex flex-col justify-around bg-slate-200 text-gray-800 text-justify prose prose-sm`><slot /></div>
+<div class=`${size} px-5 pt-5 lg:mt-10 lg:px-15 lg:pt-15 pb-10 shadow-2xl rounded-md flex flex-col justify-around bg-slate-200 text-gray-800 text-justify`>
+  <div class='prose prose-sm'>
+    <slot />
+  </div>
+</div>

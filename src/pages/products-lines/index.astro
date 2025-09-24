@@ -5,9 +5,9 @@ import Hero from "@/components/Hero.astro";
 import Paper from "@/components/Paper.astro";
 import SubMenu from "@/components/SubMenu.astro";
 
-import { getEntry } from "astro:content";
+import { getEntry, type CollectionEntry } from "astro:content";
 
-const homeBase = await getEntry('products', 'artichokes');
+const homeBase = await getEntry('products', 'artichokes-variant') as CollectionEntry<'products'>;;
 const { Content } = await homeBase.render();
 
 const heroDat = [
@@ -22,8 +22,8 @@ const heroDat = [
 
     <Hero data={heroDat} />
 
-    <Paper size='w-280'>
-        <SubMenu />
+    <Paper size='w-full lg:w-180'>
+        <!-- <SubMenu /> -->
         <Content />
     </Paper>
 
