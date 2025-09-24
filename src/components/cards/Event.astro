@@ -16,7 +16,7 @@ interface Props {
 const idCall = Astro.props.slug;
 
 const backImg = Astro.props.img;
-const style = `background-image: url('/${backImg}');`
+const style = `background-image: url('${backImg}');`
 
 const start = new Date(Astro.props.startdate);
 const end = new Date(Astro.props.enddate);
@@ -45,9 +45,16 @@ const isBooking = Astro.props.isBooking;
   <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-white p-6">
     <h3 class="text-xl font-bold">{ Astro.props.name }</h3>
     <p class="text-sm mt-1">{formatted}<br />{year} {location}</p>
-    <button data-cal-link="alismardare/reserve-a-meeting-fruit-attraction-2025" data-cal-namespace="reserve-a-meeting-fruit-attraction-2025" data-cal-config='{"layout":"month_view"}' class="mt-4 px-4 py-2 bg-indigo-600 rounded-lg hover:bg-indigo-700">
-      <a>{ isBooking ? Astro.props.cta : 'Archive News'}</a>
-    </button>
+    { isBooking ? (
+      <button data-cal-link="alismardare/reserve-a-meeting-fruit-attraction-2025" data-cal-namespace="reserve-a-meeting-fruit-attraction-2025" data-cal-config='{"layout":"month_view"}' class="mt-4 px-4 py-2 bg-indigo-600 rounded-lg hover:bg-indigo-700">
+        <a>{ isBooking ? Astro.props.cta : 'Archive News'}</a>
+      </button>
+    ) : (
+      <button class="mt-4 px-4 py-2 bg-indigo-600 rounded-lg hover:bg-indigo-700">
+        <a href='/news'>{ isBooking ? Astro.props.cta : 'Archive News'}</a>
+      </button>
+    ) }
+    
   </div>
 </div>
 { isBooking ? (<!-- Cal element-click embed code begins -->
