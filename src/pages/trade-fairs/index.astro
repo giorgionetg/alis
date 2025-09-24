@@ -18,7 +18,7 @@ const heroDat = [
     <ul class='flex flex-row flex-wrap max-w-180 gap-2'>
         {fairs.map((fair) => (
             <li>
-                <Event isBooking={fair.data.isBooking} name={fair.data.title} slug={fair.slug} startdate={fair.data.startdate as unknown as string} enddate={fair.data.enddate as unknown as string} img={fair.data.image} cta='Reserve a Meeting' location={fair.data.location as unknown as string} />
+                <Event isBooking={fair.data.isBooking} name={fair.data.title} slug={fair.slug} startdate={fair.data.startdate as unknown as string} enddate={fair.data.enddate as unknown as string} img={`/${fair.data.image}`} cta='Reserve a Meeting' location={fair.data.location as unknown as string} />
             </li>
         ))}
     </ul>
