@@ -36,8 +36,8 @@ It’s about:
 - ✅ **Trust** – personal assistance and full transparency.  
 
 ## Download the Full Product Sheet  
-Want all the **technical details, specifications, and certifications**?  
+Want all the **technical details, specifications, and certifications**? Download and checks the footer.
 
-📩 **Enter your email to receive the complete PDF** with weights, packaging formats, pH, and salt content.  
 
-[Download Full Product Sheet](/subscribe)
+
+<a href='/downloads/presentation.pdf' target='_BLANK' class='button w-full text-center bg-blue-700 p-5 rounded-2xl text-white'>DOWNLOAD</a>

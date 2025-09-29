@@ -1,29 +1,45 @@
 ---
 interface Props {
+  class?: string;
+  innerClass?: string;
   color?: string;
   height?: string | number;
   hfull?: boolean;
   cookieConsent?: boolean;
   top?: boolean;
+  background?: string;
 }
+
+let mainDiv = '';
+let innerDiv = '';
 
 const isTop = Astro.props.top || false;
 const position = isTop ? 'justify-start' : 'justify-center';
-const bgdiv = Astro.props.color ? Astro.props.color : 'bg-div';
+const bgdiv = Astro.props.background && Astro.props.background == 'default' ? 'bg-div' : Astro.props.color || 'bg-div';
+//let bgdiv = Astro.props.background || 'bg-div';
 const color = Astro.props.color || 'bg-gray-900';
 const height =
   Astro.props.height && Astro.props.height == 100
     ? 'min-h-full'
     : `min-h-${Astro.props.height}` || 'bg-gray-900';
 
-const mainDiv = `w-full ${height} bg-amber-500 ${color} flex flex-col ${position} ${bgdiv}`;
 const hfull = Astro.props.hfull ? 'h-full' : '';
 
+mainDiv = `w-full ${height} bg-amber-500 ${color} flex flex-col ${position} ${bgdiv}`;
+innerDiv = `${hfull} flex flex-row justify-center`;
+
+if (Astro.props.class) {
+  mainDiv = Astro.props.class + ' ' + bgdiv;
+}
+
+if (Astro.props.innerClass) {
+  innerDiv = Astro.props.innerClass;
+}
 
 ---
 
 <div class={mainDiv}>
-  <div class={`${hfull} flex flex-row justify-center`}>
+  <div class={innerDiv}>
     <slot />
   </div>
 </div>

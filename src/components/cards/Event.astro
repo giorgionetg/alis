@@ -39,11 +39,11 @@ const isBooking = Astro.props.isBooking;
 ---
 
 <div 
-  class="relative rounded-xl w-80 aspect-square bg-cover bg-center overflow-hidden"
+  class="relative rounded-xl w-80 aspect-square bg-cover bg-center overflow-hidden transition-shadow duration-700 ease-in-out hover:shadow-[0_0_40px_rgba(255,255,255,0.5)]"
   style={style}
 >
-  <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-white p-6">
-    <h3 class="text-xl font-bold">{ Astro.props.name }</h3>
+  <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-end text-white p-6 hover:mix-blend-lighten hover:text-shadow">
+    <h3 class="text-xl font-bold ">{ Astro.props.name }</h3>
     <p class="text-sm mt-1">{formatted}<br />{year} {location}</p>
     { isBooking ? (
       <button data-cal-link="alismardare/reserve-a-meeting-fruit-attraction-2025" data-cal-namespace="reserve-a-meeting-fruit-attraction-2025" data-cal-config='{"layout":"month_view"}' class="mt-4 px-4 py-2 bg-indigo-600 rounded-lg hover:bg-indigo-700">

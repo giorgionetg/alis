@@ -7,14 +7,53 @@ import Event from '@/components/cards/Event.astro';
 ---
 
 <Layout>
-  <Slide height={100}>
+  <!--<Slide class='fixed w-full p-10' color='bg-white' >ciao</Slide>-->
+  <Slide height={100} background='default'>
     <div class='container flex flex-col justify-around items-center gap-4 px-5 lg: py-10'>
       <BusinessCard />
       <Hero />
-      <Event isBooking={true} name='Fruit Attraction 2025' img='imgs/macfrut-2025.png' startdate='2025-09-30' enddate='2025-10-2' slug='reserve-a-meeting-fruit-attraction-2025' link='https://cal.com/alismardare/reserve-a-meeting-fruit-attraction-2025' cta='Reserve a Meeting' location='Madrid, Spain' />
-    
+      <div class='flex flex-col lg:flex-row gap-10'>
+        <Event isBooking={true} name='Fruit Attraction 2025' img='/imgs/macfrut-2025.png' startdate='2025-09-30' enddate='2025-10-2' slug='reserve-a-meeting-fruit-attraction-2025' link='https://cal.com/alismardare/reserve-a-meeting-fruit-attraction-2025' cta='Reserve a Meeting' location='Madrid, Spain' />
+        <!-- <Event isBooking={false} name='Fruit Attraction 2025' img='/imgs/macfrut-2025.png' startdate='2025-09-30' enddate='2025-10-2' slug='reserve-a-meeting-fruit-attraction-2025' link='https://cal.com/alismardare/reserve-a-meeting-fruit-attraction-2025' cta='Reserve a Meeting' location='Madrid, Spain' />-->
+      </div>
     </div>
   </Slide>
+  <Slide class='bg-[#bea689ff]' innerClass='p-10 text-center' color='bg-[#bea689ff]'>
+    <h4 class='text-3xl font-[EUR42] text-white'>Numbers managed by Alis</h4>
+    <div class='container mx-auto max-w-screen-lg px-4'>
+      <ul class='flex flex-row justify-around py-5 gap-5'>
+        <li class='min-w-50 aspect-square  text-center rounded-2xl shadow-xl p-10 text-white'>200.000 Tons per year</li>
+        <li class='min-w-50 aspect-square  rounded-2xl shadow-xl text-center p-10 text-white'>5 Shipment per week</li>
+        
+      </ul>
+    </div>
+  </Slide>
+  <!-- 
+  <Slide class='bg-slate-200/50 bg-blend-overlay' innerClass='p-10' color='bg-slate-200'>
+    <div class='container mx-auto max-w-screen-lg px-4 flex flex-row justify-around py-5 gap-5'>
+      <div class='w-[50%] prose prose-sm'>
+        <h4>Kepp in Touch</h4>
+        <p>to get updates on fornitures and become part of the <b>Alis Network Hub</b>, sign it up!</p>
+      </div>
+      <div class='w-[50%]'>
+        <div class=' prose prose-sm'>
+          <h4>Contact me</h4>
+        </div>
+        <br />
+        <form class='flex flex-col gap-3 '>
+          <input type='text' name='firstname' placeholder='Firstname' autocapitalize='words' class='capitalize rounded-md' />
+          <input type='text' name='lastname' placeholder='lastname' autocapitalize='words' class='capitalize rounded-md' />
+          <input type='email' name='email' placeholder='Email' class='rounded-md'  />
+          <div class='flex flex-row justify-around'>
+            <label class='w-80'>Check the box to allow how we work with data <a href='/privacy'>Privacy</a></label><br />
+            <input type='checkbox' />
+          </div>
+          <input type='submit' value='Send it!' class='button mt-4 px-4 py-2 bg-indigo-600 rounded-lg hover:bg-indigo-700 text-white'/>
+        </form></div>
+    </div>
+  </Slide>
+
+   -->
 </Layout>
 
 

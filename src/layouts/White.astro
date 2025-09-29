@@ -17,7 +17,28 @@ import Footer from '@/components/Footer.astro';
     <meta name='author' content={site.fullname} />
     <meta name='generator' content='Made with ❤️ by Giorgio Tedesco' />
     <!-- Developed by Giorgio Tedesco | giorgiotedesco.it -->
-     <script defer src="https://get.giorgiotedesco.it/script.js" data-website-id="04e978e4-8231-4926-8b38-22c2a45666f3"></script>
+    <script defer src="https://get.giorgiotedesco.it/script.js" data-website-id="04e978e4-8231-4926-8b38-22c2a45666f3"></script>
+    <script type="module">
+      import { initLibp2p, callBackend } from '/js/libp2p.js'
+      initLibp2p();
+
+      const BACKEND = "/dns4/relay.giorgiotedesco.it/tcp/443/wss/p2p/12D3KooWNkNn6YEcrRxpW1SJxBDMT8XxcGk9wRMPUDCGtXqXiyP7";
+      //await callBackend(BACKEND, { method: 'ping' });
+      document.addEventListener('DOMContentLoaded', async () => {
+        //const pong = await callBackend(BACKEND, { method: 'ping' });
+        //console.log("📡 Ping:", pong);
+
+        try {
+          const pong = await callBackend(BACKEND, { method: 'ping' });
+          console.log("✅ Ping ricevuto:", pong);
+        } catch (err) {
+          console.error("❌ Errore ping:", err)
+        }
+      })
+
+
+
+    </script>
   </head>
   <body>
     <slot />

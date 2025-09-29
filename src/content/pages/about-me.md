@@ -3,7 +3,11 @@ title: About me
 date: 2025-09-11
 ---
 
-There’s a thread that connects the fertile fields of my homeland with the negotiations in international markets: **a deep passion for building bridges between those who produce and those who seek authentic quality**.  
+
+
+<img src="/imgs/alis-small-square.png" alt="Alis Mardare"  class="w-full lg:w-30 lg:m-0 lg:mr-4 float-left rounded-lg shadow" /> There’s a thread that connects the fertile fields of my homeland with the negotiations in international markets:
+
+ **a deep passion for building bridges between those who produce and those who seek authentic quality**.  
 
 For over **18 years I have been working in the agricultural sector**, gaining solid expertise in fertilizers and long-term commercial relationships. Today, I’ve chosen to put this experience at the service of a new challenge: **bringing carefully selected fresh produce to the European market, with a special focus on Egyptian artichokes and other Mediterranean specialties**.  
 
