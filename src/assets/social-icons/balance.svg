@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="458.81097"
+   height="486.61328"
+   viewBox="0 0 121.39373 128.74977"
+   version="1.1"
+   id="svg1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Livello 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-7.0364674,-2.0861775)">
+    <path
+       id="rect1"
+       style="color:currentColor;opacity:1;fill:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:20;-inkscape-stroke:none"
+       d="m 67.7323,2.0861776 c -13.772754,-7e-7 -25.037232,11.2639604 -25.037232,25.0367144 0,2.771717 0.467604,5.436883 1.308964,7.933883 H 42.33385 c -8.31804,2e-5 -15.635995,5.658218 -17.728634,13.708724 L 7.4414062,114.79868 c -2.0809948,8.00571 4.1305888,16.03726 12.4023438,16.03726 h 95.77917 c 8.27175,0 14.48334,-8.03155 12.40234,-16.03726 L 110.86145,48.765499 C 108.76881,40.714992 101.45086,35.056755 93.132817,35.056775 h -1.67225 c 0.84136,-2.497 1.308964,-5.162166 1.308964,-7.933883 C 92.769532,13.350138 81.505053,2.0861776 67.7323,2.0861776 Z m 0,9.2593834 c 8.768066,0 15.777331,7.009265 15.777331,15.777331 0,2.902621 -0.773812,5.608136 -2.120284,7.933883 H 54.077319 c -1.346257,-2.325747 -2.120284,-5.031262 -2.120284,-7.933883 0,-8.768067 7.007198,-15.777331 15.775265,-15.777331 z M 42.33385,44.318225 h 50.798967 c 4.146957,0 7.722583,2.763786 8.765873,6.777364 l 17.16381,66.033181 c 0.61383,2.36143 -0.99968,4.44727 -3.43958,4.44727 H 19.84375 c -2.439906,0 -4.053411,-2.08584 -3.439583,-4.44727 L 33.568494,51.095589 c 1.043285,-4.013578 4.618399,-6.777364 8.765356,-6.777364 z"
+       inkscape:export-filename="rect1.svg"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+  </g>
+</svg>
