@@ -38,6 +38,7 @@ jobs:
         env:
           PUBLIC_FULLNAME: ${{ vars.PUBLIC_FULLNAME }}
           PUBLIC_PAYOFF: ${{ vars.PUBLIC_PAYOFF }}
+          PUBLIC_PIVA: ${{ vars.PUBLIC_PIVA }}
           PUBLIC_SOCIAL_LINKEDIN: ${{ vars.PUBLIC_SOCIAL_LINKEDIN }}
 
       - name: Upload production-ready files
