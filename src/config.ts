@@ -1,6 +1,7 @@
 export const site = {
   fullname: import.meta.env.PUBLIC_FULLNAME,
   payoff: import.meta.env.PUBLIC_PAYOFF,
+  piva: import.meta.env.PUBLIC_PIVA,
   social: {
     linkedin: import.meta.env.PUBLIC_SOCIAL_LINKEDIN,
   },

@@ -1,0 +1,10 @@
+services:
+  alis:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/home/node/src
+      - ./public:/home/node/public
+    ports:
+      - 4321:4321
