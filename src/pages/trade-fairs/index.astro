@@ -1,7 +1,9 @@
 ---
 import Layout from "@/layouts/CategoryListing.astro";
 import { getCollection } from "astro:content";
-const fairs = await getCollection("trade-fairs");
+const fairs = (await getCollection("trade-fairs")).sort(
+	(a, b) => b.data.startdate.valueOf() - a.data.startdate.valueOf()
+);
 import Hero from "@/components/Hero.astro";
 
 import Event from '@/components/cards/Event.astro';
