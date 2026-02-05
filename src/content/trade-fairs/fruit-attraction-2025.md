@@ -5,7 +5,7 @@ startdate: "2025-09-30"
 enddate: "2025-09-02"
 location: "Madrid, Spain"
 image: 'imgs/fruitattraction-2025.png'
-isBooking: true
+isBooking: false
 
 ---
 

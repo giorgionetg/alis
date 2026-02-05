@@ -10200,30 +10200,21 @@ function _pushable(getNext, options) {
 }
 
 // node_modules/p-timeout/index.js
-var TimeoutError2 = class extends Error {
-  constructor(message2) {
-    super(message2);
-    this.name = "TimeoutError";
+var TimeoutError2 = class _TimeoutError extends Error {
+  name = "TimeoutError";
+  constructor(message2, options) {
+    super(message2, options);
+    Error.captureStackTrace?.(this, _TimeoutError);
   }
 };
-var AbortError3 = class extends Error {
-  constructor(message2) {
-    super();
-    this.name = "AbortError";
-    this.message = message2;
-  }
-};
-var getDOMException = (errorMessage) => globalThis.DOMException === void 0 ? new AbortError3(errorMessage) : new DOMException(errorMessage);
-var getAbortedReason = (signal) => {
-  const reason = signal.reason === void 0 ? getDOMException("This operation was aborted.") : signal.reason;
-  return reason instanceof Error ? reason : getDOMException(reason);
-};
+var getAbortedReason = (signal) => signal.reason ?? new DOMException("This operation was aborted.", "AbortError");
 function pTimeout(promise, options) {
   const {
     milliseconds,
     fallback,
     message: message2,
-    customTimers = { setTimeout, clearTimeout }
+    customTimers = { setTimeout, clearTimeout },
+    signal
   } = options;
   let timer;
   let abortHandler;
@@ -10231,18 +10222,18 @@ function pTimeout(promise, options) {
     if (typeof milliseconds !== "number" || Math.sign(milliseconds) !== 1) {
       throw new TypeError(`Expected \`milliseconds\` to be a positive number, got \`${milliseconds}\``);
     }
-    if (options.signal) {
-      const { signal } = options;
-      if (signal.aborted) {
-        reject(getAbortedReason(signal));
-      }
+    if (signal?.aborted) {
+      reject(getAbortedReason(signal));
+      return;
+    }
+    if (signal) {
       abortHandler = () => {
         reject(getAbortedReason(signal));
       };
       signal.addEventListener("abort", abortHandler, { once: true });
     }
+    promise.then(resolve, reject);
     if (milliseconds === Number.POSITIVE_INFINITY) {
-      promise.then(resolve, reject);
       return;
     }
     const timeoutError = new TimeoutError2();
@@ -10267,18 +10258,11 @@ function pTimeout(promise, options) {
         reject(timeoutError);
       }
     }, milliseconds);
-    (async () => {
-      try {
-        resolve(await promise);
-      } catch (error) {
-        reject(error);
-      }
-    })();
   });
   const cancelablePromise = wrappedPromise.finally(() => {
     cancelablePromise.clear();
-    if (abortHandler && options.signal) {
-      options.signal.removeEventListener("abort", abortHandler);
+    if (abortHandler && signal) {
+      signal.removeEventListener("abort", abortHandler);
     }
   });
   cancelablePromise.clear = () => {
@@ -11499,7 +11483,8 @@ var AbstractStream = class extends AbstractMessageStream {
 function anySignal(signals) {
   const controller = new globalThis.AbortController();
   function onAbort() {
-    controller.abort();
+    const reason = signals.filter((s2) => s2?.aborted === true).map((s2) => s2?.reason).pop();
+    controller.abort(reason);
     for (const signal2 of signals) {
       if (signal2?.removeEventListener != null) {
         signal2.removeEventListener("abort", onAbort);
@@ -12393,45 +12378,6 @@ function multiaddr(addr) {
   return new Multiaddr(addr);
 }
 
-// node_modules/it-queueless-pushable/node_modules/race-signal/dist/src/index.js
-var AbortError4 = class extends Error {
-  type;
-  code;
-  constructor(message2, code3, name3) {
-    super(message2 ?? "The operation was aborted");
-    this.type = "aborted";
-    this.name = name3 ?? "AbortError";
-    this.code = code3 ?? "ABORT_ERR";
-  }
-};
-async function raceSignal2(promise, signal, opts) {
-  if (signal == null) {
-    return promise;
-  }
-  if (signal.aborted) {
-    promise.catch(() => {
-    });
-    return Promise.reject(new AbortError4(opts?.errorMessage, opts?.errorCode, opts?.errorName));
-  }
-  let listener;
-  const error = new AbortError4(opts?.errorMessage, opts?.errorCode, opts?.errorName);
-  try {
-    return await Promise.race([
-      promise,
-      new Promise((resolve, reject) => {
-        listener = () => {
-          reject(error);
-        };
-        signal.addEventListener("abort", listener);
-      })
-    ]);
-  } finally {
-    if (listener != null) {
-      signal.removeEventListener("abort", listener);
-    }
-  }
-}
-
 // node_modules/it-queueless-pushable/dist/src/index.js
 var QueuelessPushable = class {
   readNext;
@@ -12509,7 +12455,7 @@ var QueuelessPushable = class {
     }
     this.haveNext.resolve();
     this.haveNext = pDefer();
-    await raceSignal2(this.readNext.promise, options?.signal, options);
+    await raceSignal(this.readNext.promise, options?.signal, options);
   }
 };
 function queuelessPushable() {
@@ -13892,7 +13838,7 @@ function all(source) {
 var src_default3 = all;
 
 // node_modules/abort-error/dist/src/index.js
-var AbortError5 = class extends Error {
+var AbortError3 = class extends Error {
   static name = "AbortError";
   name = "AbortError";
   constructor(message2 = "The operation was aborted", ...rest) {
@@ -13902,7 +13848,7 @@ var AbortError5 = class extends Error {
 
 // node_modules/race-event/dist/src/index.js
 async function raceEvent(emitter, eventName, signal, opts) {
-  const error = new AbortError5(opts?.errorMessage);
+  const error = new AbortError3(opts?.errorMessage);
   if (opts?.errorCode != null) {
     error.code = opts.errorCode;
   }
@@ -13979,45 +13925,6 @@ var QueueFullError2 = class extends Error {
   }
 };
 
-// node_modules/it-queue/node_modules/race-signal/dist/src/index.js
-var AbortError6 = class extends Error {
-  type;
-  code;
-  constructor(message2, code3, name3) {
-    super(message2 ?? "The operation was aborted");
-    this.type = "aborted";
-    this.name = name3 ?? "AbortError";
-    this.code = code3 ?? "ABORT_ERR";
-  }
-};
-async function raceSignal3(promise, signal, opts) {
-  if (signal == null) {
-    return promise;
-  }
-  if (signal.aborted) {
-    promise.catch(() => {
-    });
-    return Promise.reject(new AbortError6(opts?.errorMessage, opts?.errorCode, opts?.errorName));
-  }
-  let listener;
-  const error = new AbortError6(opts?.errorMessage, opts?.errorCode, opts?.errorName);
-  try {
-    return await Promise.race([
-      promise,
-      new Promise((resolve, reject) => {
-        listener = () => {
-          reject(error);
-        };
-        signal.addEventListener("abort", listener);
-      })
-    ]);
-  } finally {
-    if (listener != null) {
-      signal.removeEventListener("abort", listener);
-    }
-  }
-}
-
 // node_modules/it-queue/dist/src/recipient.js
 var JobRecipient2 = class {
   deferred;
@@ -14029,7 +13936,7 @@ var JobRecipient2 = class {
     this.signal?.addEventListener("abort", this.onAbort);
   }
   onAbort() {
-    this.deferred.reject(this.signal?.reason ?? new AbortError5());
+    this.deferred.reject(this.signal?.reason ?? new AbortError3());
   }
   cleanup() {
     this.signal?.removeEventListener("abort", this.onAbort);
@@ -14069,7 +13976,7 @@ var Job2 = class {
       return acc && curr.signal?.aborted === true;
     }, true);
     if (allAborted) {
-      this.controller.abort(new AbortError5());
+      this.controller.abort(new AbortError3());
       this.cleanup();
     }
   }
@@ -14084,7 +13991,7 @@ var Job2 = class {
     this.timeline.started = Date.now();
     try {
       this.controller.signal.throwIfAborted();
-      const result = await raceSignal3(this.fn({
+      const result = await raceSignal(this.fn({
         ...this.options ?? {},
         signal: this.controller.signal
       }), this.controller.signal);
@@ -14265,7 +14172,7 @@ var Queue2 = class extends TypedEventEmitter {
    */
   abort() {
     this.queue.forEach((job) => {
-      job.abort(new AbortError5());
+      job.abort(new AbortError3());
     });
     this.clear();
   }
@@ -14366,7 +14273,7 @@ var Queue2 = class extends TypedEventEmitter {
       cleanup();
     };
     const onSignalAbort = () => {
-      cleanup(new AbortError5("Queue aborted"));
+      cleanup(new AbortError3("Queue aborted"));
     };
     this.addEventListener("success", onQueueJobComplete);
     this.addEventListener("failure", onQueueError);
@@ -14650,7 +14557,7 @@ async function createReleasable(queue, options) {
     rej = reject;
   });
   const listener = () => {
-    rej(new AbortError5());
+    rej(new AbortError3());
   };
   options?.signal?.addEventListener("abort", listener, {
     once: true
@@ -17972,81 +17879,14 @@ function defaultAddressSorter(addresses) {
   return addresses.sort(reliableTransportsFirst).sort(certifiedAddressesFirst).sort(circuitRelayAddressesLast).sort(publicAddressesFirst).sort(loopbackAddressLast);
 }
 
+// node_modules/@multiformats/dns/dist/src/errors.js
+var DNSQueryFailedError = class extends AggregateError {
+  static name = "DNSQueryFailedError";
+  name = "DNSQueryFailedError";
+};
+
 // node_modules/eventemitter3/index.mjs
 var import_index8 = __toESM(require_eventemitter3(), 1);
-
-// node_modules/@multiformats/dns/node_modules/p-timeout/index.js
-var TimeoutError3 = class _TimeoutError extends Error {
-  name = "TimeoutError";
-  constructor(message2, options) {
-    super(message2, options);
-    Error.captureStackTrace?.(this, _TimeoutError);
-  }
-};
-var getAbortedReason2 = (signal) => signal.reason ?? new DOMException("This operation was aborted.", "AbortError");
-function pTimeout2(promise, options) {
-  const {
-    milliseconds,
-    fallback,
-    message: message2,
-    customTimers = { setTimeout, clearTimeout },
-    signal
-  } = options;
-  let timer;
-  let abortHandler;
-  const wrappedPromise = new Promise((resolve, reject) => {
-    if (typeof milliseconds !== "number" || Math.sign(milliseconds) !== 1) {
-      throw new TypeError(`Expected \`milliseconds\` to be a positive number, got \`${milliseconds}\``);
-    }
-    if (signal?.aborted) {
-      reject(getAbortedReason2(signal));
-      return;
-    }
-    if (signal) {
-      abortHandler = () => {
-        reject(getAbortedReason2(signal));
-      };
-      signal.addEventListener("abort", abortHandler, { once: true });
-    }
-    promise.then(resolve, reject);
-    if (milliseconds === Number.POSITIVE_INFINITY) {
-      return;
-    }
-    const timeoutError = new TimeoutError3();
-    timer = customTimers.setTimeout.call(void 0, () => {
-      if (fallback) {
-        try {
-          resolve(fallback());
-        } catch (error) {
-          reject(error);
-        }
-        return;
-      }
-      if (typeof promise.cancel === "function") {
-        promise.cancel();
-      }
-      if (message2 === false) {
-        resolve();
-      } else if (message2 instanceof Error) {
-        reject(message2);
-      } else {
-        timeoutError.message = message2 ?? `Promise timed out after ${milliseconds} milliseconds`;
-        reject(timeoutError);
-      }
-    }, milliseconds);
-  });
-  const cancelablePromise = wrappedPromise.finally(() => {
-    cancelablePromise.clear();
-    if (abortHandler && signal) {
-      signal.removeEventListener("abort", abortHandler);
-    }
-  });
-  cancelablePromise.clear = () => {
-    customTimers.clearTimeout.call(void 0, timer);
-    timer = void 0;
-  };
-  return cancelablePromise;
-}
 
 // node_modules/@multiformats/dns/node_modules/p-queue/dist/lower-bound.js
 function lowerBound(array, value2, comparator) {
@@ -18115,6 +17955,10 @@ var PQueue = class extends import_index8.default {
   #lastExecutionTime = 0;
   #intervalId;
   #timeoutId;
+  #strict;
+  // Circular buffer implementation for better performance
+  #strictTicks = [];
+  #strictTicksStartIndex = 0;
   #queue;
   #queueClass;
   #pending = 0;
@@ -18150,6 +17994,7 @@ var PQueue = class extends import_index8.default {
       concurrency: Number.POSITIVE_INFINITY,
       autoStart: true,
       queueClass: PriorityQueue2,
+      strict: false,
       ...options
     };
     if (!(typeof options.intervalCap === "number" && options.intervalCap >= 1)) {
@@ -18158,10 +18003,17 @@ var PQueue = class extends import_index8.default {
     if (options.interval === void 0 || !(Number.isFinite(options.interval) && options.interval >= 0)) {
       throw new TypeError(`Expected \`interval\` to be a finite number >= 0, got \`${options.interval?.toString() ?? ""}\` (${typeof options.interval})`);
     }
+    if (options.strict && options.interval === 0) {
+      throw new TypeError("The `strict` option requires a non-zero `interval`");
+    }
+    if (options.strict && options.intervalCap === Number.POSITIVE_INFINITY) {
+      throw new TypeError("The `strict` option requires a finite `intervalCap`");
+    }
     this.#carryoverIntervalCount = options.carryoverIntervalCount ?? options.carryoverConcurrencyCount ?? false;
     this.#isIntervalIgnored = options.intervalCap === Number.POSITIVE_INFINITY || options.interval === 0;
     this.#intervalCap = options.intervalCap;
     this.#interval = options.interval;
+    this.#strict = options.strict;
     this.#queue = new options.queueClass();
     this.#queueClass = options.queueClass;
     this.concurrency = options.concurrency;
@@ -18172,8 +18024,49 @@ var PQueue = class extends import_index8.default {
     this.#isPaused = options.autoStart === false;
     this.#setupRateLimitTracking();
   }
+  #cleanupStrictTicks(now) {
+    while (this.#strictTicksStartIndex < this.#strictTicks.length) {
+      const oldestTick = this.#strictTicks[this.#strictTicksStartIndex];
+      if (oldestTick !== void 0 && now - oldestTick >= this.#interval) {
+        this.#strictTicksStartIndex++;
+      } else {
+        break;
+      }
+    }
+    const shouldCompact = this.#strictTicksStartIndex > 100 && this.#strictTicksStartIndex > this.#strictTicks.length / 2 || this.#strictTicksStartIndex === this.#strictTicks.length;
+    if (shouldCompact) {
+      this.#strictTicks = this.#strictTicks.slice(this.#strictTicksStartIndex);
+      this.#strictTicksStartIndex = 0;
+    }
+  }
+  // Helper methods for interval consumption
+  #consumeIntervalSlot(now) {
+    if (this.#strict) {
+      this.#strictTicks.push(now);
+    } else {
+      this.#intervalCount++;
+    }
+  }
+  #rollbackIntervalSlot() {
+    if (this.#strict) {
+      if (this.#strictTicks.length > this.#strictTicksStartIndex) {
+        this.#strictTicks.pop();
+      }
+    } else if (this.#intervalCount > 0) {
+      this.#intervalCount--;
+    }
+  }
+  #getActiveTicksCount() {
+    return this.#strictTicks.length - this.#strictTicksStartIndex;
+  }
   get #doesIntervalAllowAnother() {
-    return this.#isIntervalIgnored || this.#intervalCount < this.#intervalCap;
+    if (this.#isIntervalIgnored) {
+      return true;
+    }
+    if (this.#strict) {
+      return this.#getActiveTicksCount() < this.#intervalCap;
+    }
+    return this.#intervalCount < this.#intervalCap;
   }
   get #doesConcurrentAllowAnother() {
     return this.#pending < this.#concurrency;
@@ -18187,12 +18080,22 @@ var PQueue = class extends import_index8.default {
     this.emit("next");
   }
   #onResumeInterval() {
+    this.#timeoutId = void 0;
     this.#onInterval();
     this.#initializeIntervalIfNeeded();
-    this.#timeoutId = void 0;
   }
-  get #isIntervalPaused() {
-    const now = Date.now();
+  #isIntervalPausedAt(now) {
+    if (this.#strict) {
+      this.#cleanupStrictTicks(now);
+      const activeTicksCount = this.#getActiveTicksCount();
+      if (activeTicksCount >= this.#intervalCap) {
+        const oldestTick = this.#strictTicks[this.#strictTicksStartIndex];
+        const delay = this.#interval - (now - oldestTick);
+        this.#createIntervalTimeout(delay);
+        return true;
+      }
+      return false;
+    }
     if (this.#intervalId === void 0) {
       const delay = this.#intervalEnd - now;
       if (delay < 0) {
@@ -18237,21 +18140,25 @@ var PQueue = class extends import_index8.default {
       this.emit("empty");
       if (this.#pending === 0) {
         this.#clearTimeoutTimer();
+        if (this.#strict && this.#strictTicksStartIndex > 0) {
+          const now = Date.now();
+          this.#cleanupStrictTicks(now);
+        }
         this.emit("idle");
       }
       return false;
     }
     let taskStarted = false;
     if (!this.#isPaused) {
-      const canInitializeInterval = !this.#isIntervalPaused;
+      const now = Date.now();
+      const canInitializeInterval = !this.#isIntervalPausedAt(now);
       if (this.#doesIntervalAllowAnother && this.#doesConcurrentAllowAnother) {
         const job = this.#queue.dequeue();
         if (!this.#isIntervalIgnored) {
-          this.#intervalCount++;
+          this.#consumeIntervalSlot(now);
           this.#scheduleRateLimitUpdate();
         }
         this.emit("active");
-        this.#lastExecutionTime = Date.now();
         job();
         if (canInitializeInterval) {
           this.#initializeIntervalIfNeeded();
@@ -18265,16 +18172,21 @@ var PQueue = class extends import_index8.default {
     if (this.#isIntervalIgnored || this.#intervalId !== void 0) {
       return;
     }
+    if (this.#strict) {
+      return;
+    }
     this.#intervalId = setInterval(() => {
       this.#onInterval();
     }, this.#interval);
     this.#intervalEnd = Date.now() + this.#interval;
   }
   #onInterval() {
-    if (this.#intervalCount === 0 && this.#pending === 0 && this.#intervalId) {
-      this.#clearIntervalTimer();
+    if (!this.#strict) {
+      if (this.#intervalCount === 0 && this.#pending === 0 && this.#intervalId) {
+        this.#clearIntervalTimer();
+      }
+      this.#intervalCount = this.#carryoverIntervalCount ? this.#pending : 0;
     }
-    this.#intervalCount = this.#carryoverIntervalCount ? this.#pending : 0;
     this.#processQueue();
     this.#scheduleRateLimitUpdate();
   }
@@ -18338,10 +18250,11 @@ var PQueue = class extends import_index8.default {
     this.#queue.setPriority(id, priority);
   }
   async add(function_, options = {}) {
-    options.id ??= (this.#idAssigner++).toString();
     options = {
       timeout: this.timeout,
-      ...options
+      ...options,
+      // Assign unique ID if not provided
+      id: options.id ?? (this.#idAssigner++).toString()
     };
     return new Promise((resolve, reject) => {
       const taskSymbol = Symbol(`task-${options.id}`);
@@ -18359,15 +18272,14 @@ var PQueue = class extends import_index8.default {
           try {
             options.signal?.throwIfAborted();
           } catch (error) {
-            if (!this.#isIntervalIgnored) {
-              this.#intervalCount--;
-            }
+            this.#rollbackIntervalConsumption();
             this.#runningTasks.delete(taskSymbol);
             throw error;
           }
+          this.#lastExecutionTime = Date.now();
           let operation = function_({ signal: options.signal });
           if (options.timeout) {
-            operation = pTimeout2(Promise.resolve(operation), {
+            operation = pTimeout(Promise.resolve(operation), {
               milliseconds: options.timeout,
               message: `Task timed out after ${options.timeout}ms (queue has ${this.#pending} running, ${this.#queue.size} waiting)`
             });
@@ -18426,7 +18338,14 @@ var PQueue = class extends import_index8.default {
   */
   clear() {
     this.#queue = new this.#queueClass();
+    this.#clearIntervalTimer();
     this.#updateRateLimitState();
+    this.emit("empty");
+    if (this.#pending === 0) {
+      this.#clearTimeoutTimer();
+      this.emit("idle");
+    }
+    this.emit("next");
   }
   /**
       Can be called multiple times. Useful if you for example add additional items at a later time.
@@ -18522,7 +18441,7 @@ var PQueue = class extends import_index8.default {
       ```
       */
   // eslint-disable-next-line @typescript-eslint/promise-function-async
-  async onError() {
+  onError() {
     return new Promise((_resolve, reject) => {
       const handleError = (error) => {
         this.off("error", handleError);
@@ -18592,9 +18511,31 @@ var PQueue = class extends import_index8.default {
       this.#updateRateLimitState();
     });
   }
+  #rollbackIntervalConsumption() {
+    if (this.#isIntervalIgnored) {
+      return;
+    }
+    this.#rollbackIntervalSlot();
+    this.#scheduleRateLimitUpdate();
+  }
   #updateRateLimitState() {
     const previous = this.#rateLimitedInInterval;
-    const shouldBeRateLimited = !this.#isIntervalIgnored && this.#intervalCount >= this.#intervalCap && this.#queue.size > 0;
+    if (this.#isIntervalIgnored || this.#queue.size === 0) {
+      if (previous) {
+        this.#rateLimitedInInterval = false;
+        this.emit("rateLimitCleared");
+      }
+      return;
+    }
+    let count;
+    if (this.#strict) {
+      const now = Date.now();
+      this.#cleanupStrictTicks(now);
+      count = this.#getActiveTicksCount();
+    } else {
+      count = this.#intervalCount;
+    }
+    const shouldBeRateLimited = count >= this.#intervalCap;
     if (shouldBeRateLimited !== previous) {
       this.#rateLimitedInInterval = shouldBeRateLimited;
       this.emit(shouldBeRateLimited ? "rateLimit" : "rateLimitCleared");
@@ -18722,12 +18663,14 @@ function dnsJsonOverHttps(url, init = {}) {
     concurrency: init.queryConcurrency ?? DEFAULT_QUERY_CONCURRENCY
   });
   return async (fqdn, options = {}) => {
+    const log2 = options?.logger?.forComponent("dns:dns-json-over-https");
     const searchParams = new URLSearchParams();
     searchParams.set("name", fqdn);
     getTypes(options.types).forEach((type) => {
       searchParams.append("type", RecordType[type]);
     });
     options.onProgress?.(new CustomProgressEvent("dns:query", fqdn));
+    log2?.("GET %s", `${url}?${searchParams}`);
     const response = await httpQueue.add(async () => {
       const res = await fetch(`${url}?${searchParams}`, {
         headers: {
@@ -18735,6 +18678,7 @@ function dnsJsonOverHttps(url, init = {}) {
         },
         signal: options?.signal
       });
+      log2?.("GET %s %d", res.url, res.status);
       if (res.status !== 200) {
         throw new Error(`Unexpected HTTP status: ${res.status} - ${res.statusText}`);
       }
@@ -18825,9 +18769,11 @@ var DEFAULT_ANSWER_CACHE_SIZE = 1e3;
 var DNS2 = class {
   resolvers;
   cache;
+  logger;
   constructor(init) {
     this.resolvers = {};
     this.cache = cache2(init.cacheSize ?? DEFAULT_ANSWER_CACHE_SIZE);
+    this.logger = init.logger;
     Object.entries(init.resolvers ?? {}).forEach(([tld, resolver]) => {
       if (!Array.isArray(resolver)) {
         resolver = [resolver];
@@ -18868,6 +18814,7 @@ var DNS2 = class {
       try {
         const result = await resolver(domain, {
           ...options,
+          logger: this.logger,
           types
         });
         for (const answer of result.Answer) {
@@ -18879,10 +18826,7 @@ var DNS2 = class {
         options.onProgress?.(new CustomProgressEvent("dns:error", err));
       }
     }
-    if (errors.length === 1) {
-      throw errors[0];
-    }
-    throw new AggregateError(errors, `DNS lookup of ${domain} ${types} failed`);
+    throw new DNSQueryFailedError(errors, `DNS lookup of ${domain} ${types} failed`);
   }
 };
 
@@ -19364,7 +19308,7 @@ function validateNumberOption(name3, value2, { min = 0, allowInfinity = false } 
     throw new TypeError(`Expected \`${name3}\` to be \u2265 ${min}.`);
   }
 }
-var AbortError7 = class extends Error {
+var AbortError4 = class extends Error {
   constructor(message2) {
     super();
     if (message2 instanceof Error) {
@@ -19393,7 +19337,7 @@ function calculateRemainingTime(start2, max) {
 }
 async function onAttemptFailure({ error, attemptNumber, retriesConsumed, startTime, options }) {
   const normalizedError = error instanceof Error ? error : new TypeError(`Non-error was thrown: "${error}". You should only throw errors.`);
-  if (normalizedError instanceof AbortError7) {
+  if (normalizedError instanceof AbortError4) {
     throw normalizedError.originalError;
   }
   const retriesLeft = Number.isFinite(options.retries) ? Math.max(0, options.retries - retriesConsumed) : options.retries;
@@ -19429,6 +19373,7 @@ async function onAttemptFailure({ error, attemptNumber, retriesConsumed, startTi
   }
   const delayTime = calculateDelay(retriesConsumed, options);
   const finalDelay = Math.min(delayTime, remainingTime);
+  options.signal?.throwIfAborted();
   if (finalDelay > 0) {
     await new Promise((resolve, reject) => {
       const onAbort = () => {
@@ -21697,7 +21642,7 @@ function isEncryptionSkipped(opts) {
 }
 
 // node_modules/libp2p/dist/src/version.js
-var version = "3.1.2";
+var version = "3.1.3";
 var name2 = "js-libp2p";
 
 // node_modules/libp2p/dist/src/user-agent.browser.js

@@ -14,7 +14,7 @@ const posts = await getCollection("posts");
             <ul>
             {posts.map((post) => (
                 <li>
-                <a href={`/trade-fairs/${post.slug}`}>{post.data.title}</a>
+                    <a href={`/posts/${post.slug}`}>{post.data.title}</a>
                 </li>
             ))}
             </ul>
